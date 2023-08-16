@@ -1,0 +1,61 @@
+{
+  "name": "code-logger",
+  "version": "0.0.1-beta",
+  "description": "code-logger: Monitor and manage application activity effortlessly through detailed logs. Keep a watchful eye on your codebase by tracking errors, events, and key interactions, empowering you to maintain a smooth and reliable web experience.",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "source": "src/index.ts",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.module.js",
+  "unpkg": "./lib/index.umd.js",
+  "scripts": {
+    "start": "concurrently -n 'lib,example' -c 'bgBlue.bold,bgGreen.bold' 'npm run un-compress:microbundle' 'http-server example -p 4000'",
+    "un-compress:microbundle": "microbundle -o example/logger.min.js --external none --format umd --sourcemap false --compress false watch",
+    "dev": "microbundle --no-compress watch && cp -rf lib example",
+    "build": "rm -rf ./lib && microbundle && cp -rf lib example",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json",
+    "test": "jest --config jestconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "publish": "npm publish --access=public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-crash/code-logger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/code-crash/code-logger/issues"
+  },
+  "homepage": "https://github.com/code-crash/code-logger#readme",
+  "files": [
+    "lib/**/*"
+  ],
+  "keywords": [
+    "code",
+    "log",
+    "logger",
+    "code-logger",
+    "analytics"
+  ],
+  "author": "code-crash",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "http-server": "^14.1.1",
+    "jest": "^29.6.2",
+    "microbundle": "^0.15.1",
+    "prettier": "^3.0.1",
+    "ts-jest": "^29.1.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0",
+    "events": "^3.3.0"
+  }
+}
