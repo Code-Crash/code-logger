@@ -1,7 +1,7 @@
 {
   "name": "code-logger",
   "version": "0.0.1-beta",
-  "description": "code-logger: Monitor and manage application activity effortlessly through detailed logs. Keep a watchful eye on your codebase by tracking errors, events, and key interactions, empowering you to maintain a smooth and reliable web experience.",
+  "description": "Code-Logger: Monitor and manage application activity effortlessly through detailed logs. Keep a watchful eye on your codebase by tracking errors, events, and key interactions, empowering you to maintain a smooth and reliable web experience.",
   "types": "lib/index.d.ts",
   "type": "module",
   "source": "src/index.ts",
