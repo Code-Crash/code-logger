@@ -10,9 +10,18 @@ Monitor and manage application activity effortlessly through detailed logs. Keep
 ![Download](https://img.shields.io/npm/dw/code-logger)
 
 
+## Features
+
+- [x] Capture Console (log,info,debug,warn,error)
+- [ ] Capture Network
+- [ ] Capture WebSockets
+- [ ] Capture Global Errors
+
 ## How to Use
 
 TODO: Update this [In Progress]
+
+
 
 
 ## How to Contribute

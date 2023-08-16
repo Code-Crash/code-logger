@@ -10,6 +10,13 @@ Monitor and manage application activity effortlessly through detailed logs. Keep
 [![PRs Welcome](https://img.shields.io/badge/contribution-Welcome-brightgreen)](https://github.com/Code-Crash/code-logger#how-to-contribute)
 ![Download](https://img.shields.io/npm/dw/code-logger)
 
+## Features
+
+- [x] Capture Console (log,info,debug,warn,error)
+- [ ] Capture Network
+- [ ] Capture WebSockets
+- [ ] Capture Global Errors
+
 ### Use Case:
 
 1. We can use this library to log and report all console and network activities to track the web based applications
