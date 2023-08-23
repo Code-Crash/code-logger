@@ -10,13 +10,17 @@ export const RECORDER_STATUS = {
 };
 
 export const STRINGS = {
-  start: `Recording started.`,
+  start: 'Recording started.',
   started: 'Recording is already in progress.',
   stop: 'Recording stopped.',
-  stopped: 'Recording is not in progress.'
+  stopped: 'Recording is not in progress.',
 };
 
 export const EVENT_TYPES = {
   start: 'start',
   stop: 'stop',
+  console: 'console',
+  api: 'api',
+  file: 'file',
+  originalConsole: 'original-console',
 };

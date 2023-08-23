@@ -1,15 +1,18 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "ESNext",
-        "declaration": true,
-        "outDir": "./lib",
-    },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/__tests__/*"
-    ]
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ESNext",
+    "declaration": true,
+    "outDir": "./lib",
+  },
+  "include": [
+    "src/**/*",
+    "example/node"
+  ],
+  "exclude": [
+    "**/example/lib/**/*",
+    "node_modules",
+    "**/__tests__/*",
+    "src/__tests__/**/*.ts"
+  ]
 }

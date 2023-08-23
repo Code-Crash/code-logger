@@ -2,81 +2,116 @@
  * @file config.ts - Purpose of this file will be to hold the configuration or customization.
  */
 
-/**
- * This interface will be used as ConfigOptions for Config class
- * @interface ConfigOptions
- * @property {boolean} isSilentExceptions When this is true, we will not throw Error/Exception, we will only do console log (if logs are enabled)
- * @property {boolean} isLoggerEnabled
- */
-interface ConfigOptions {
-  isRecordingEnabled?: boolean
-  isConsoleEnabled?: boolean
-  isOriginalConsoleEnabled?: boolean
-  isNetworkEnabled?: boolean
-  isWebSocketEnabled?: boolean
-  isGlobalErrorEnabled?: boolean
-  isLoggerEnabled?: boolean
-}
+import { DEFAULT_CONFIG_OPTIONS } from './constants';
+import { ConfigOptions, TransportInterface, TransportType } from './types';
 
-const CONFIG_PROPERTIES = {
-  isRecordingEnabled: 'boolean',
-  isConsoleEnabled: 'boolean',
-  isOriginalConsoleEnabled: 'boolean',
-  isNetworkEnabled: 'boolean',
-  isWebSocketEnabled: 'boolean',
-  isGlobalErrorEnabled: 'boolean',
-  isLoggerEnabled: 'boolean',
-}
+const DEFAULT_TRANSPORT_OPTIONS: TransportInterface = {
+  api: {
+    type: TransportType.API,
+    enabled: true,
+    options: {
+      url: '',
+      headers: {}
+    }
+  },
+  file: {
+    type: TransportType.FILE,
+    enabled: false,
+    options: {
+      path: ''
+    }
+  },
+};
 
-export default class Config implements ConfigOptions {
-  public static instance: Config = null // Note: Assign "new Config()" here to avoid lazy initialization
-  isRecordingEnabled: boolean = false;
-  isConsoleEnabled: boolean = true;
-  isOriginalConsoleEnabled: boolean = false;
-  isNetworkEnabled: boolean = false;
-  isWebSocketEnabled: boolean = false;
-  isGlobalErrorEnabled: boolean = false;
-  isLoggerEnabled: boolean = true;
-
-  constructor(options?: ConfigOptions) {
+export default class Config {
+  public static instance: Config = null; // Note: Assign "new Config()" here to avoid lazy initialization
+  private options: ConfigOptions = DEFAULT_CONFIG_OPTIONS;
+  private transports: TransportInterface = DEFAULT_TRANSPORT_OPTIONS;
+  constructor(options?: ConfigOptions, transports?: TransportInterface) {
     // Check if the object is already created, if yes, return it
     if (Config.instance) {
       return Config.instance;
     }
     // Check options and assign the values to the options
     if (options) {
-      Object.keys(CONFIG_PROPERTIES).forEach(key => {
-        if (options.hasOwnProperty(key) && typeof options[key] === CONFIG_PROPERTIES[key]) {
-          this[key] = options[key];
+      Object.keys(DEFAULT_CONFIG_OPTIONS).forEach(key => {
+        if (
+          Object.prototype.hasOwnProperty.call(options, key) &&
+          Object.prototype.hasOwnProperty.call(DEFAULT_CONFIG_OPTIONS, key)
+        ) {
+          this[key] = options[key] || DEFAULT_CONFIG_OPTIONS[key];
         }
-      })
+      });
     }
-
+    // Set Transports
+    if (transports && Object.keys(transports).length) {
+      if (Object.keys(transports?.api || {}).length && transports.api.options.url) {
+        this.transports.api = { ...this.transports.api, ...transports.api };
+        this.options.isApiEnabled = true;
+      }
+      if (Object.keys(transports?.file || {}).length) {
+        this.transports.file = { ...this.transports.file, ...transports.file };
+      }
+    }
     // Assign the newly created instance
-    Config.instance = this
+    Config.instance = this;
   }
 
-  enabler = () => {
-    this.isRecordingEnabled = true;
-    this.isConsoleEnabled = true;
-    this.isOriginalConsoleEnabled = true;
-    this.isNetworkEnabled = true;
-    this.isWebSocketEnabled = true;
-    this.isGlobalErrorEnabled = true;
-    this.isLoggerEnabled = true;
+  getApiOptions() {
+    return this.transports?.api?.options;
   }
 
-  disabler = () => {
-    this.isRecordingEnabled = false;
-    this.isConsoleEnabled = false;
-    this.isOriginalConsoleEnabled = false;
-    this.isNetworkEnabled = false;
-    this.isWebSocketEnabled = false;
-    this.isGlobalErrorEnabled = false;
-    this.isLoggerEnabled = false;
+  setApi(url: string, headers?: Record<string, string>) {
+    if (url && typeof url === 'string') {
+      this.transports.api.options.url = url;
+      this.options.isApiEnabled = true;
+    }
+    if (headers && Object.keys(headers).length) {
+      this.transports.api.options.headers = { ...this.transports?.api?.options?.headers, ...headers };
+    }
   }
 
-  getInstance(options: ConfigOptions) {
+  enabler() {
+    this.options.recorder.isRecordingEnabled = true;
+    this.options.recorder.isConsoleEnabled = true;
+    this.options.recorder.isOriginalConsoleEnabled = true;
+    this.options.recorder.isNetworkEnabled = false;
+    this.options.recorder.isWebSocketEnabled = false;
+    this.options.recorder.isGlobalErrorEnabled = false;
+    this.options.isLoggerEnabled = true;
+  }
+
+  disabler() {
+    this.options.recorder.isRecordingEnabled = false;
+    this.options.recorder.isConsoleEnabled = false;
+    this.options.recorder.isOriginalConsoleEnabled = false;
+    this.options.recorder.isNetworkEnabled = false;
+    this.options.recorder.isWebSocketEnabled = false;
+    this.options.recorder.isGlobalErrorEnabled = false;
+    this.options.isLoggerEnabled = false;
+  }
+
+  isApiEnabled() {
+    return this.options.isApiEnabled;
+  }
+
+  isLoggerEnabled() {
+    return this.options.isLoggerEnabled;
+  }
+
+  isRecordingEnabled() {
+    return this.options.recorder.isRecordingEnabled;
+  }
+
+  isConsoleEnabled() {
+    return this.options.recorder.isConsoleEnabled;
+  }
+
+  isOriginalConsoleEnabled() {
+    return this.options.recorder.isOriginalConsoleEnabled;
+  }
+
+  public static getInstance(options?: ConfigOptions) {
     if (!Config.instance) {
       Config.instance = new Config(options);
     }
