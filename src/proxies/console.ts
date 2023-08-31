@@ -21,7 +21,7 @@ const doConsoleProxy = () => {
           }
           const level = prop.toUpperCase();
           const timestamp = new Date().toISOString();
-          let logObject = { level, timestamp, message };
+          const logObject = { level, timestamp, message };
           let trace;
           // Note: Trace is only applied to error, we can generate the trace for each level by taking out below code from if block, but not sure if we need it for success logs.
           if (level === LOG_TYPE.error) {

@@ -17,6 +17,9 @@ Monitor and manage application activity effortlessly through detailed logs. Keep
 - [ ] Capture WebSockets
 - [ ] Capture Global Errors
 - [ ] Add support for different transport (api,file,database,etc.)
+  - [x] API
+  - [ ] File
+  - [ ] Database (Browser Database/Hosted Database/In Memory)
 
 ### Use Case:
 
