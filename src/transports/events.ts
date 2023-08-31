@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import Config from '../utils/config';
-import { EVENT_TYPES } from '../constants';
+import { EVENT_TYPES } from '../utils/constants';
 import { doRequest } from './api';
 import { doFile } from './file';
 

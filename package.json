@@ -10,9 +10,9 @@
   "unpkg": "./lib/index.umd.js",
   "scripts": {
     "start": "concurrently -n 'lib,example' -c 'bgBlue.bold,bgGreen.bold' 'npm run un-compress:microbundle' 'http-server example/web -p 4000'",
-    "un-compress:microbundle": "microbundle -o example/web/logger.min.js --external events --format umd --sourcemap true --compress false watch",
+    "un-compress:microbundle": "microbundle -o example/web/logger.min.js --external none --format umd --sourcemap true --compress false watch",
     "dev": "microbundle --no-compress watch && cp -rf lib example",
-    "build": "rm -rf ./lib && microbundle --format modern,esm,cjs && microbundle -o lib/logger.min.js --external events --format umd --sourcemap true && cp -rf lib example",
+    "build": "rm -rf ./lib && microbundle --format modern,esm,cjs && microbundle -o lib/logger.min.js --external none --format umd --sourcemap true && cp -rf lib example",
     "build:un-compress": "rm -rf ./lib && microbundle --format modern,esm,cjs && microbundle -o lib/logger.min.js --format umd --sourcemap true --compress false && cp -rf lib example",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint --fix --ext .ts .",

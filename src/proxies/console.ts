@@ -1,6 +1,6 @@
 import Config from '../utils/config';
 import events from '../transports/events';
-import { EVENT_TYPES } from '../constants';
+import { EVENT_TYPES, LOG_TYPE } from '../utils/constants';
 import { replacer } from '../utils/util';
 
 // Define a function that will act as the proxy for console methods
@@ -15,15 +15,20 @@ const doConsoleProxy = () => {
         return (...args: object[]) => {
           // TODO: Clean this try/catch block
           try {
-            message = `${JSON.stringify(args, replacer, 2)}`;
+            message = `${JSON.stringify(args, replacer, null)}`;
           } catch (error) {
             // TODO: Handle silent error here
           }
           const level = prop.toUpperCase();
           const timestamp = new Date().toISOString();
-          const stackTrace = new Error().stack;
-          const trace = stackTrace ? stackTrace.replace(/^Error\n\s*/, '').replace(/^\s*\n/, '') : '';
-          const logObject = { level, timestamp, message, trace };
+          let logObject = { level, timestamp, message };
+          let trace;
+          // Note: Trace is only applied to error, we can generate the trace for each level by taking out below code from if block, but not sure if we need it for success logs.
+          if (level === LOG_TYPE.error) {
+            const stackTrace = new Error().stack;
+            trace = stackTrace ? stackTrace.replace(/^Error\n\s*/, '').replace(/^\s*\n/, '') : '';
+            logObject['trace'] = trace;
+          }
           // See if recording is enabled and console proxy is also enable before performing actual console logs
           if (Config.instance.isRecordingEnabled && Config.instance.isConsoleEnabled()) {
             // oConsole.log(logObject); // TODO: Do we want to log out own events
