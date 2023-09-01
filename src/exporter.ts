@@ -4,7 +4,7 @@ import events from './transports/events';
 import log from './utils/log';
 
 // Instantiate default Config
-const config = new Config();
+const config = Config.getInstance();
 events.subscriptions(); // subscribe register events
 // Note: export only helpers which is required outside the library, we can't make private as internally we have to use it.
 const helpers = {

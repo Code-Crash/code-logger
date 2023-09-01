@@ -10,6 +10,7 @@
     "example/node"
   ],
   "exclude": [
+    "example",
     "**/example/lib/**/*",
     "node_modules",
     "**/__tests__/*",

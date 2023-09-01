@@ -79,6 +79,10 @@ export default class Config {
     this.options.recorder.isWebSocketEnabled = false;
     this.options.recorder.isGlobalErrorEnabled = false;
     this.options.isLoggerEnabled = true;
+    // Note: If url is already set, enabler can enable the isApiEnabled to true
+    if (this.transports.api.options.url) {
+      this.options.isApiEnabled = true;
+    }
   }
 
   disabler() {
@@ -89,6 +93,7 @@ export default class Config {
     this.options.recorder.isWebSocketEnabled = false;
     this.options.recorder.isGlobalErrorEnabled = false;
     this.options.isLoggerEnabled = false;
+    this.options.isApiEnabled = false;
   }
 
   isApiEnabled() {

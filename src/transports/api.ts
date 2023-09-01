@@ -2,6 +2,7 @@ import { ApiTransportOptionsInterface, Payload } from '../utils/types';
 
 export async function doRequest(options: ApiTransportOptionsInterface, data: Payload): Promise<void> {
   try {
+    if (options && !options.url) return;
     options.headers = { 'Content-Type': 'application/json', ...options.headers };
     const response = await fetch(options.url, {
       method: 'POST',
