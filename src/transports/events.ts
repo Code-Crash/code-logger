@@ -4,7 +4,7 @@ import { EVENT_TYPES } from '../utils/constants';
 import { doRequest } from './api';
 import { doFile } from './file';
 
-class Events extends EventEmitter {
+export class Events extends EventEmitter {
   public static instance: Events;
 
   constructor() {

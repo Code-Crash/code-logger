@@ -21,7 +21,7 @@ const doConsoleProxy = () => {
           }
           const level = prop.toUpperCase();
           const timestamp = new Date().toISOString();
-          const logObject = { level, timestamp, message };
+          const logObject = { level, message };
           let trace;
           // Note: Trace is only applied to error, we can generate the trace for each level by taking out below code from if block, but not sure if we need it for success logs.
           if (level === LOG_TYPE.error) {
@@ -32,7 +32,7 @@ const doConsoleProxy = () => {
           // See if recording is enabled and console proxy is also enable before performing actual console logs
           if (Config.instance.isRecordingEnabled && Config.instance.isConsoleEnabled()) {
             // oConsole.log(logObject); // TODO: Do we want to log out own events
-            events.emit(EVENT_TYPES.api, { type: EVENT_TYPES.console, payload: logObject });
+            events.emit(EVENT_TYPES.api, { type: EVENT_TYPES.console, level, timestamp, payload: logObject });
             // TODO: API integration to send data on server
           }
 

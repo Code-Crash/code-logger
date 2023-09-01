@@ -13,10 +13,14 @@ Monitor and manage application activity effortlessly through detailed logs. Keep
 ## Features
 
 - [x] Capture Console (log,info,debug,warn,error)
+- [x] Custom Logs (levels: info, warn, error)
 - [ ] Capture Network
 - [ ] Capture WebSockets
 - [ ] Capture Global Errors
 - [ ] Add support for different transport (api,file,database,etc.)
+  - [x] API
+  - [ ] File
+  - [ ] Database (Browser Database/Hosted Database/In Memory)
 
 ## How to Use
 

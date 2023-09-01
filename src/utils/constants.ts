@@ -49,6 +49,7 @@ export const EVENT_TYPES = {
   start: 'start',
   stop: 'stop',
   console: 'console',
+  log: 'log',
   api: 'api',
   file: 'file',
   originalConsole: 'original-console',

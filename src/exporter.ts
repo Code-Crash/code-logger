@@ -1,6 +1,7 @@
 import recorder from './utils/recorder';
 import Config from './utils/config';
 import events from './transports/events';
+import log from './utils/log';
 
 // Instantiate default Config
 const config = new Config();
@@ -21,6 +22,7 @@ const doStop = () => recorder.doStop();
 
 export default {
   helpers,
+  log,
   doStart,
   doStop,
 };
