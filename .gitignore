@@ -285,4 +285,4 @@ log/
 logs
 *.log%
 *.log
-example*
+lib

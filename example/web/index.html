@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./logger.min.umd.js"></script>
+  <!-- <script src="https://unpkg.com/code-logger@0.1.0-beta/lib/logger.min.umd.js"></script> -->
+  <script>
+    if (window && window.codeLogger && window.codeLogger.doStart && typeof window.codeLogger.doStart === 'function') {
+      // window.codeLogger.doStart();
+    }
+  </script>
+  <script>
+    console.log('Hi... Log');
+    console.info('Hi... Info');
+    console.warn('Hi... Warn');
+    console.debug('Hi...Debug');
+    console.error('Hi...Error');
+    // setInterval(() => {
+    //   console.log('Hi... Log');
+    //   console.info('Hi... Info');
+    //   console.warn('Hi... Warn');
+    //   console.debug('Hi...Debug');
+    //   console.error('Hi...Error');
+    // }, 1000);
+  </script>
+</head>
+
+<body>
+  <section>
+    <header>
+      <h1>CodeLog</h1>
+    </header>
+  </section>
+
+</body>
+
+</html>
